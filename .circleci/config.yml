@@ -10,59 +10,37 @@
 #  See: http://github.com/globality-corp/globality-build
 #
 #
-
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/python:3.7.0
-
-whitelist: &whitelist
-  paths:
-    .
-
 version: 2
 
 jobs:
-  checkout:
-    <<: *defaults
-
-    steps:
-      - checkout
-
-      - persist_to_workspace:
-          root: ~/repo
-          <<: *whitelist
-
   test:
     working_directory: ~/repo
     docker:
       - image: circleci/python:3.7.0
       - image: circleci/postgres:9.6.5-alpine-ram
+        environment:
+          POSTGRES_USER: rob_onboarding
+          POSTGRES_DB: rob_onboarding_test_db
     steps:
-      - attach_workspace:
-          at: ~/repo
-
-      - run:
-          name: pull and run database - postgres
-          command: |
+      - checkout
       - run:
           name: Test code
           command: |
-            sudo apt-get update && sudo apt-get install postgresql-client-9.6
+            sudo apt-get update
+            sudo apt-get install postgresql-client-9.6
             sudo pip install -e .
             sudo pip install -r test_requirements.txt
-            ./nosetests
+            nosetests ./
   lint:
-    <<: *defaults
+    working_directory: ~/repo
+    docker:
+      - image: circleci/python:3.7.0
 
     steps:
-      - attach_workspace:
-          at: ~/repo
-
+      - checkout
       - run:
           name: Run Lint
           command: |
-            sudo pip install -e .
             sudo pip install -r test_requirements.txt
             flake8
 
@@ -71,11 +49,6 @@ workflows:
 
   build:
     jobs:
-      - checkout:
-          filters:
-            # run for all branches and tags
-            tags:
-              only: /.*/
       - test:
           filters:
             # run for all branches and tags

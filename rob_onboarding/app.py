@@ -9,7 +9,7 @@ from microcosm_secretsmanager.loaders.conventions import load_from_secretsmanage
 
 import rob_onboarding.postgres  # noqa
 import rob_onboarding.routes.example.controller  # noqa
-import rob_onboarding.routes.example.crud   # noqa
+import rob_onboarding.routes.example.crud  # noqa
 import rob_onboarding.stores.example_store  # noqa
 from rob_onboarding.config import load_default_config
 
