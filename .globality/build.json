@@ -1,0 +1,10 @@
+{
+  "params": {
+    "databases": [
+      "postgres"
+    ],
+    "name": "rob_onboarding"
+  },
+  "type": "python-service",
+  "version": "2019.42.1"
+}
