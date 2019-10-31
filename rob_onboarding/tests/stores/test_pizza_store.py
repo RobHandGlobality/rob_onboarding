@@ -7,13 +7,11 @@ handle most boilerplate.
 """
 from hamcrest import (
     assert_that,
-    calling,
     equal_to,
     is_,
-    raises,
 )
 from microcosm_postgres.context import SessionContext, transaction
-from microcosm_postgres.errors import DuplicateModelError
+from microcosm_postgres.identifiers import new_object_id
 
 from rob_onboarding.app import create_app
 from rob_onboarding.models.pizza_model import Pizza
@@ -37,11 +35,11 @@ class TestPizza:
 
     def test_create(self):
         """
-        Examples can be persisted.
+        Pizza can be persisted.
 
         """
         new_pizza = Pizza(
-            customer_id=1,
+            customer_id=new_object_id(),
             crust_type='thin',
             size=10
         )

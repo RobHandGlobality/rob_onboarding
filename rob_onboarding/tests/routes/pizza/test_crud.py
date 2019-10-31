@@ -32,7 +32,8 @@ class TestPizzaRoutes:
         self.name1 = "name1"
 
         self.pizza1 = Pizza(
-            id=new_object_id(), customer_id=1,
+            id=new_object_id(),
+            customer_id=new_object_id(),
             crust_type='thin', size=12
         )
 
@@ -54,7 +55,7 @@ class TestPizzaRoutes:
                 items=contains(
                     has_entries(
                         id=str(self.pizza1.id),
-                        customerId=1,
+                        customerId=str(self.pizza1.customer_id),
                         crustType='thin',
                         size=12
                     ),
@@ -65,12 +66,13 @@ class TestPizzaRoutes:
     def test_create(self):
         uri = "/api/v1/pizza"
 
+        customer_id = str(new_object_id())
         with patch.object(self.graph.pizza_store, "new_object_id") as mocked:
             mocked.return_value = self.pizza1.id
             response = self.client.post(
                 uri,
                 json=dict(
-                    customerId=1,
+                    customerId=customer_id,
                     crustType='thin',
                     size=12
                 ),
@@ -81,7 +83,7 @@ class TestPizzaRoutes:
             response.json,
             has_entries(
                 id=str(self.pizza1.id),
-                customerId=1,
+                customerId=customer_id,
                 crustType='thin',
                 size=12
             ),
@@ -89,12 +91,12 @@ class TestPizzaRoutes:
 
     def test_replace_with_new(self):
         uri = f"/api/v1/pizza/{self.pizza1.id}"
-
+        customer_id = str(new_object_id())
         response = self.client.put(
             uri,
             json=dict(
                 size=10,
-                customerId=1,
+                customerId=customer_id,
                 crustType='thin',
             ),
         )
@@ -104,7 +106,7 @@ class TestPizzaRoutes:
             response.json,
             has_entries(
                 id=str(self.pizza1.id),
-                customerId=1,
+                customerId=customer_id,
                 crustType='thin',
                 size=10
             ),
@@ -122,7 +124,7 @@ class TestPizzaRoutes:
             response.json,
             has_entries(
                 id=str(self.pizza1.id),
-                customerId=1,
+                customerId=str(self.pizza1.customer_id),
                 crustType='thin',
                 size=12
             ),

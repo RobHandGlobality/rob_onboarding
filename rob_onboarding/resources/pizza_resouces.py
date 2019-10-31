@@ -12,7 +12,7 @@ from rob_onboarding.models.pizza_model import Pizza
 
 
 class NewPizzaSchema(Schema):
-    customer_id = fields.Integer(
+    customer_id = fields.UUID(
         required=True, data_key='customerId'
     )
     size = fields.Integer(required=True)
