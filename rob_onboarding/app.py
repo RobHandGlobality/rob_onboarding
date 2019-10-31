@@ -8,9 +8,9 @@ from microcosm.loaders.compose import load_config_and_secrets
 from microcosm_secretsmanager.loaders.conventions import load_from_secretsmanager
 
 import rob_onboarding.postgres  # noqa
-import rob_onboarding.routes.example.controller  # noqa
-import rob_onboarding.routes.example.crud  # noqa
-import rob_onboarding.stores.example_store  # noqa
+import rob_onboarding.routes.pizza.controller  # noqa
+import rob_onboarding.routes.pizza.crud  # noqa
+import rob_onboarding.stores.pizza_store  # noqa
 from rob_onboarding.config import load_default_config
 
 
@@ -37,7 +37,7 @@ def create_app(debug=False, testing=False, model_only=False):
     )
 
     graph.use(
-        "example_store",
+        "pizza_store",
         "logging",
         "postgres",
         "sessionmaker",
@@ -56,7 +56,7 @@ def create_app(debug=False, testing=False, model_only=False):
             "postgres_health_check",
             "swagger_convention",
             # routes
-            "example_routes",
+            "pizza_routes",
         )
 
     return graph.lock()
