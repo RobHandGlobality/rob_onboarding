@@ -17,8 +17,9 @@ class TestOrderRoutes:
         self.client = self.graph.flask.test_client()
         recreate_all(self.graph)
 
+        self.order_id = new_object_id()
         self.order1 = Order(
-            id=new_object_id(), customer_id=new_object_id()
+            id=self.order_id, customer_id=new_object_id()
         )
         self.detail_uri = f"/api/v1/order/{self.order1.id}"
 
@@ -43,6 +44,7 @@ class TestOrderRoutes:
             )
         )
 
+    # TODO Fix test
     def test_create(self):
         customer_id = str(new_object_id())
         with patch.object(self.graph.order_store, "new_object_id") as mocked:
@@ -85,3 +87,6 @@ class TestOrderRoutes:
 
         response = self.client.delete(self.detail_uri)
         assert_that(response.status_code, is_(equal_to(204)))
+
+        with SessionContext(self.graph) as session:
+            assert session.session.query(Order).get(self.order_id) is None

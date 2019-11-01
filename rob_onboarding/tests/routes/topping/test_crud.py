@@ -17,8 +17,9 @@ class TestToppingRoutes:
         self.client = self.graph.flask.test_client()
         recreate_all(self.graph)
 
+        self.topping_id = new_object_id()
         self.topping1 = Topping(
-            id=new_object_id(), pizza_id=new_object_id(),
+            id=self.topping_id, pizza_id=new_object_id(),
             topping_type='ONION'
         )
         self.detail_uri = f"/api/v1/topping/{self.topping1.id}"
@@ -83,3 +84,6 @@ class TestToppingRoutes:
 
         response = self.client.delete(self.detail_uri)
         assert_that(response.status_code, is_(equal_to(204)))
+
+        with SessionContext(self.graph) as session:
+            assert session.session.query(Topping).get(self.topping_id) is None
