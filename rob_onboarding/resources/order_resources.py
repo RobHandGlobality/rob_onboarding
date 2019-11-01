@@ -13,36 +13,23 @@ from rob_onboarding.models.order_model import Order
 
 
 class NewOrderSchema(Schema):
-    customer_id = fields.UUID(
-        required=True, data_key='customerId'
-    )
+    customer_id = fields.UUID(required=True, data_key="customerId")
 
 
 class OrderSchema(NewOrderSchema):
-    id = fields.UUID(
-        required=True,
-    )
-    _links = fields.Method(
-        "get_links",
-        dump_only=True,
-    )
+    id = fields.UUID(required=True,)
+    _links = fields.Method("get_links", dump_only=True,)
 
     def get_links(self, obj):
         links = Links()
         links["self"] = Link.for_(
             Operation.Retrieve,
-            Namespace(
-                subject=Order,
-                version="v1",
-            ),
+            Namespace(subject=Order, version="v1",),
             order_id=obj.id,
         )
         links["child:events"] = Link.for_(
             Operation.Search,
-            Namespace(
-                subject=OrderEvent,
-                version="v1",
-            ),
+            Namespace(subject=OrderEvent, version="v1",),
             order_id=obj.id,
         )
 

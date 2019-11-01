@@ -13,19 +13,9 @@ def load_default_config(metadata):
 
     """
     config = Configuration(
-        flask=dict(
-            port=5000,
-        ),
-        logging=dict(
-            levels=dict(
-                override=dict(
-                    warn=[],
-                ),
-            ),
-        ),
-        swagger_convention=dict(
-            version="v1",
-        ),
+        flask=dict(port=5000,),
+        logging=dict(levels=dict(override=dict(warn=[],),),),
+        swagger_convention=dict(version="v1",),
     )
     if metadata.testing:
         config.logging.levels.override.warn.append("alembic.runtime.migration")

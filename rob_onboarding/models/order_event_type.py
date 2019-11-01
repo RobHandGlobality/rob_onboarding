@@ -9,40 +9,24 @@ class OrderEventType(EventType):
         https://globality.atlassian.net/wiki/spaces/GLOB/pages/917733426/Product+Spec+Ordering+a+Pizza
 
     """
+
     # NB: Our state machines always start with an initial event
-    OrderInitialized = event_info(
-        follows=nothing(),
-    )
+    OrderInitialized = event_info(follows=nothing(),)
 
     PizzaCreated = event_info(
-        follows=any_of(
-            "OrderInitialized",
-            "PizzaCustomizationFinished",
-        ),
+        follows=any_of("OrderInitialized", "PizzaCustomizationFinished",),
     )
 
     PizzaToppingAdded = event_info(
-        follows=any_of(
-            "PizzaCreated",
-            "PizzaToppingAdded",
-        ),
+        follows=any_of("PizzaCreated", "PizzaToppingAdded",),
     )
 
     PizzaCustomizationFinished = event_info(
-        follows=any_of(
-            "PizzaCreated",
-            "PizzaToppingAdded",
-        ),
+        follows=any_of("PizzaCreated", "PizzaToppingAdded",),
     )
 
-    OrderDeliveryDetailsAdded = event_info(
-        follows="PizzaCustomizationFinished",
-    )
+    OrderDeliveryDetailsAdded = event_info(follows="PizzaCustomizationFinished",)
 
-    OrderSubmitted = event_info(
-        follows="OrderDeliveryDetailsAdded",
-    )
+    OrderSubmitted = event_info(follows="OrderDeliveryDetailsAdded",)
 
-    OrderSatisfied = event_info(
-        follows="OrderSubmitted",
-    )
+    OrderSatisfied = event_info(follows="OrderSubmitted",)

@@ -10,4 +10,4 @@ class Pizza(EntityMixin, Model):
     customer_id = Column(UUIDType, nullable=False)
     size = Column(Integer, nullable=False, default=10)
     # TODO: Update field to use ChoiceType sqlalchemy to restrict choices
-    crust_type = Column(String, nullable=False, unique=False, default='thin')
+    crust_type = Column(String, nullable=False, unique=False, default="thin")

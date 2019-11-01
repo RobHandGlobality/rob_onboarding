@@ -15,8 +15,7 @@ def configure_order_routes(graph):
     controller = graph.order_event_controller
     mappings = {
         Operation.Retrieve: EndpointDefinition(
-            func=controller.retrieve,
-            response_schema=OrderEventSchema(),
+            func=controller.retrieve, response_schema=OrderEventSchema(),
         ),
         Operation.Search: EndpointDefinition(
             func=controller.search,

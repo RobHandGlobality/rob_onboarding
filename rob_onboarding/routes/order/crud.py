@@ -8,7 +8,11 @@ from microcosm_flask.conventions.crud import configure_crud
 from microcosm_flask.operations import Operation
 from microcosm_postgres.context import transactional
 
-from rob_onboarding.resources.order_resources import NewOrderSchema, OrderSchema, SearchOrderSchema
+from rob_onboarding.resources.order_resources import (
+    NewOrderSchema,
+    OrderSchema,
+    SearchOrderSchema,
+)
 
 
 @binding("order_routes")
@@ -20,17 +24,9 @@ def configure_order_routes(graph):
             request_schema=NewOrderSchema(),
             response_schema=OrderSchema(),
         ),
-        Operation.Delete: EndpointDefinition(
-            func=transactional(controller.delete),
-        ),
-        Operation.Replace: EndpointDefinition(
-            func=transactional(controller.replace),
-            request_schema=NewOrderSchema(),
-            response_schema=OrderSchema(),
-        ),
+        Operation.Delete: EndpointDefinition(func=transactional(controller.delete),),
         Operation.Retrieve: EndpointDefinition(
-            func=controller.retrieve,
-            response_schema=OrderSchema(),
+            func=controller.retrieve, response_schema=OrderSchema(),
         ),
         Operation.Search: EndpointDefinition(
             func=controller.search,

@@ -7,7 +7,6 @@ from rob_onboarding.models.order_model import Order
 
 
 class TestOrder:
-
     def setup(self):
         self.graph = create_app(testing=True)
         self.order_store = self.graph.order_store
@@ -26,9 +25,7 @@ class TestOrder:
         """
         Order can be persisted
         """
-        new_order = Order(
-            customer_id=self.customer_id
-        )
+        new_order = Order(customer_id=self.customer_id)
 
         with transaction():
             self.order_store.create(new_order)

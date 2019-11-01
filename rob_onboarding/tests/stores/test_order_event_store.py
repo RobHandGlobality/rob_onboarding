@@ -9,7 +9,6 @@ from rob_onboarding.models.order_model import Order
 
 
 class TestOrderEvent:
-
     def setup(self):
         self.graph = create_app(testing=True)
         self.order_event_store = self.graph.order_event_store
@@ -30,8 +29,7 @@ class TestOrderEvent:
         """
         new_order = Order(id=self.order_id)
         new_order_event = OrderEvent(
-            order_id=self.order_id,
-            event_type=OrderEventType.OrderInitialized
+            order_id=self.order_id, event_type=OrderEventType.OrderInitialized
         )
 
         with transaction():

@@ -23,7 +23,6 @@ from rob_onboarding.models.pizza_model import Pizza
 
 
 class TestPizzaRoutes:
-
     def setup(self):
         self.graph = create_app(testing=True)
         self.client = self.graph.flask.test_client()
@@ -32,9 +31,7 @@ class TestPizzaRoutes:
         self.name1 = "name1"
 
         self.pizza1 = Pizza(
-            id=new_object_id(),
-            customer_id=new_object_id(),
-            crust_type='thin', size=12
+            id=new_object_id(), customer_id=new_object_id(), crust_type="thin", size=12
         )
 
     def teardown(self):
@@ -56,8 +53,8 @@ class TestPizzaRoutes:
                     has_entries(
                         id=str(self.pizza1.id),
                         customerId=str(self.pizza1.customer_id),
-                        crustType='thin',
-                        size=12
+                        crustType="thin",
+                        size=12,
                     ),
                 ),
             ),
@@ -70,12 +67,7 @@ class TestPizzaRoutes:
         with patch.object(self.graph.pizza_store, "new_object_id") as mocked:
             mocked.return_value = self.pizza1.id
             response = self.client.post(
-                uri,
-                json=dict(
-                    customerId=customer_id,
-                    crustType='thin',
-                    size=12
-                ),
+                uri, json=dict(customerId=customer_id, crustType="thin", size=12),
             )
 
         assert_that(response.status_code, is_(equal_to(201)))
@@ -84,8 +76,8 @@ class TestPizzaRoutes:
             has_entries(
                 id=str(self.pizza1.id),
                 customerId=customer_id,
-                crustType='thin',
-                size=12
+                crustType="thin",
+                size=12,
             ),
         )
 
@@ -93,12 +85,7 @@ class TestPizzaRoutes:
         uri = f"/api/v1/pizza/{self.pizza1.id}"
         customer_id = str(new_object_id())
         response = self.client.put(
-            uri,
-            json=dict(
-                size=10,
-                customerId=customer_id,
-                crustType='thin',
-            ),
+            uri, json=dict(size=10, customerId=customer_id, crustType="thin"),
         )
 
         assert_that(response.status_code, is_(equal_to(200)))
@@ -107,8 +94,8 @@ class TestPizzaRoutes:
             has_entries(
                 id=str(self.pizza1.id),
                 customerId=customer_id,
-                crustType='thin',
-                size=10
+                crustType="thin",
+                size=10,
             ),
         )
 
@@ -125,8 +112,8 @@ class TestPizzaRoutes:
             has_entries(
                 id=str(self.pizza1.id),
                 customerId=str(self.pizza1.customer_id),
-                crustType='thin',
-                size=12
+                crustType="thin",
+                size=12,
             ),
         )
 

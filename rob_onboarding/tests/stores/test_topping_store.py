@@ -11,7 +11,6 @@ from rob_onboarding.models.topping_model import Topping
 
 
 class TestTopping:
-
     def setup(self):
         self.graph = create_app(testing=True)
         self.topping_store = self.graph.topping_store
@@ -32,10 +31,7 @@ class TestTopping:
         Topping can be persisted.
 
         """
-        new_topping = Topping(
-            pizza_id=new_object_id(),
-            topping_type=self.topping_type,
-        )
+        new_topping = Topping(pizza_id=new_object_id(), topping_type=self.topping_type,)
 
         with transaction():
             self.topping_store.create(new_topping)

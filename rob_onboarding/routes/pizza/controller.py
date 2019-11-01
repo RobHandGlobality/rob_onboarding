@@ -11,11 +11,7 @@ from rob_onboarding.models.pizza_model import Pizza
 
 @binding("pizza_controller")
 class PizzaController(CRUDStoreAdapter):
-
     def __init__(self, graph):
         super().__init__(graph, graph.pizza_store)
 
-        self.ns = Namespace(
-            subject=Pizza,
-            version="v1",
-        )
+        self.ns = Namespace(subject=Pizza, version="v1",)

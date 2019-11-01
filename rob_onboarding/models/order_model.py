@@ -4,5 +4,5 @@ from sqlalchemy_utils import UUIDType
 
 
 class Order(UnixTimestampEntityMixin, Model):
-    __tablename__ = 'order'
+    __tablename__ = "order"
     customer_id = Column(UUIDType)

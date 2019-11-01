@@ -24,17 +24,14 @@ def configure_topping_routes(graph):
             request_schema=NewToppingSchema(),
             response_schema=ToppingSchema(),
         ),
-        Operation.Delete: EndpointDefinition(
-            func=transactional(controller.delete),
-        ),
+        Operation.Delete: EndpointDefinition(func=transactional(controller.delete),),
         Operation.Replace: EndpointDefinition(
             func=transactional(controller.replace),
             request_schema=NewToppingSchema(),
             response_schema=ToppingSchema(),
         ),
         Operation.Retrieve: EndpointDefinition(
-            func=controller.retrieve,
-            response_schema=ToppingSchema(),
+            func=controller.retrieve, response_schema=ToppingSchema(),
         ),
         Operation.Search: EndpointDefinition(
             func=controller.search,

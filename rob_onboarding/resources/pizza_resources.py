@@ -12,30 +12,20 @@ from rob_onboarding.models.pizza_model import Pizza
 
 
 class NewPizzaSchema(Schema):
-    customer_id = fields.UUID(
-        required=True, data_key='customerId'
-    )
+    customer_id = fields.UUID(required=True, data_key="customerId")
     size = fields.Integer(required=False, default=10)
-    crust_type = fields.String(required=False, data_key='crustType', default='thin')
+    crust_type = fields.String(required=False, data_key="crustType", default="thin")
 
 
 class PizzaSchema(NewPizzaSchema):
-    id = fields.UUID(
-        required=True,
-    )
-    _links = fields.Method(
-        "get_links",
-        dump_only=True,
-    )
+    id = fields.UUID(required=True,)
+    _links = fields.Method("get_links", dump_only=True,)
 
     def get_links(self, obj):
         links = Links()
         links["self"] = Link.for_(
             Operation.Retrieve,
-            Namespace(
-                subject=Pizza,
-                version="v1",
-            ),
+            Namespace(subject=Pizza, version="v1",),
             pizza_id=obj.id,
         )
         return links.to_dict()

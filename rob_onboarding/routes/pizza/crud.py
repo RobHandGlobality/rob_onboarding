@@ -20,17 +20,14 @@ def configure_pizza_routes(graph):
             request_schema=NewPizzaSchema(),
             response_schema=PizzaSchema(),
         ),
-        Operation.Delete: EndpointDefinition(
-            func=transactional(controller.delete),
-        ),
+        Operation.Delete: EndpointDefinition(func=transactional(controller.delete),),
         Operation.Replace: EndpointDefinition(
             func=transactional(controller.replace),
             request_schema=NewPizzaSchema(),
             response_schema=PizzaSchema(),
         ),
         Operation.Retrieve: EndpointDefinition(
-            func=controller.retrieve,
-            response_schema=PizzaSchema(),
+            func=controller.retrieve, response_schema=PizzaSchema(),
         ),
         Operation.Search: EndpointDefinition(
             func=controller.search,

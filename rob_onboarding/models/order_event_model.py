@@ -10,7 +10,7 @@ from rob_onboarding.models.order_model import Order
 
 @add_metaclass(EventMeta)
 class OrderEvent(UnixTimestampEntityMixin):
-    __tablename__ = 'order_event'
+    __tablename__ = "order_event"
     __eventtype__ = OrderEventType
     __container__ = Order
 

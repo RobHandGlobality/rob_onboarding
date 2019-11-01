@@ -13,10 +13,7 @@ class OrderEventFactory(EventFactory):
         super().__init__(
             event_store=graph.order_event_store,
             identifier_key="order_id",
-            default_ns=Namespace(
-                subject=OrderEvent,
-                version="v1",
-            ),
+            default_ns=Namespace(subject=OrderEvent, version="v1",),
             publish_event_pubsub=False,
             publish_model_pubsub=False,
         )

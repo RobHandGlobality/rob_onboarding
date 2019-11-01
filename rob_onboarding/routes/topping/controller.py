@@ -11,11 +11,7 @@ from rob_onboarding.models.topping_model import Topping
 
 @binding("topping_controller")
 class ToppingController(CRUDStoreAdapter):
-
     def __init__(self, graph):
         super().__init__(graph, graph.topping_store)
 
-        self.ns = Namespace(
-            subject=Topping,
-            version="v1",
-        )
+        self.ns = Namespace(subject=Topping, version="v1",)
