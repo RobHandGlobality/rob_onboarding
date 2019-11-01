@@ -1,5 +1,5 @@
 """
-Pizza resources.
+OrderEvent resources.
 
 """
 from marshmallow import Schema, fields
@@ -8,18 +8,10 @@ from microcosm_flask.namespaces import Namespace
 from microcosm_flask.operations import Operation
 from microcosm_flask.paging import PageSchema
 
-from rob_onboarding.models.pizza_model import Pizza
+from rob_onboarding.models.order_event_model import OrderEvent
 
 
-class NewPizzaSchema(Schema):
-    customer_id = fields.UUID(
-        required=True, data_key='customerId'
-    )
-    size = fields.Integer(required=True)
-    crust_type = fields.String(required=True, data_key='crustType')
-
-
-class PizzaSchema(NewPizzaSchema):
+class OrderEventSchema(Schema):
     id = fields.UUID(
         required=True,
     )
@@ -33,13 +25,14 @@ class PizzaSchema(NewPizzaSchema):
         links["self"] = Link.for_(
             Operation.Retrieve,
             Namespace(
-                subject=Pizza,
+                subject=OrderEvent,
                 version="v1",
             ),
-            pizza_id=obj.id,
+            order_event_id=obj.id,
         )
+
         return links.to_dict()
 
 
-class SearchPizzaSchema(PageSchema):
-    order = fields.String()
+class SearchOrderEventSchema(PageSchema):
+    orderId = fields.String()

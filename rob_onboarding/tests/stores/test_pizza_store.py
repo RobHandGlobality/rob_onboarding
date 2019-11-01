@@ -5,11 +5,7 @@ Tests cover model-specific constraints under the assumption that framework conve
 handle most boilerplate.
 
 """
-from hamcrest import (
-    assert_that,
-    equal_to,
-    is_,
-)
+from hamcrest import assert_that, equal_to, is_
 from microcosm_postgres.context import SessionContext, transaction
 from microcosm_postgres.identifiers import new_object_id
 

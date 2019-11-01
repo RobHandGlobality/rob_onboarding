@@ -7,10 +7,17 @@ from microcosm.loaders import load_each, load_from_environ, load_from_json_file
 from microcosm.loaders.compose import load_config_and_secrets
 from microcosm_secretsmanager.loaders.conventions import load_from_secretsmanager
 
+import rob_onboarding.factories  # noqa
 import rob_onboarding.postgres  # noqa
+import rob_onboarding.routes.order.controller  # noqa
+import rob_onboarding.routes.order.crud  # noqa
+import rob_onboarding.routes.order_event.controller  # noqa
+import rob_onboarding.routes.order_event.crud  # noqa
 import rob_onboarding.routes.pizza.controller  # noqa
 import rob_onboarding.routes.pizza.crud  # noqa
-import rob_onboarding.stores.pizza_store  # noqa
+import rob_onboarding.routes.topping.controller  # noqa
+import rob_onboarding.routes.topping.crud  # noqa
+import rob_onboarding.stores  # noqa
 from rob_onboarding.config import load_default_config
 
 
@@ -38,6 +45,9 @@ def create_app(debug=False, testing=False, model_only=False):
 
     graph.use(
         "pizza_store",
+        "order_store",
+        "order_event_store",
+        "topping_store",
         "logging",
         "postgres",
         "sessionmaker",
@@ -57,6 +67,11 @@ def create_app(debug=False, testing=False, model_only=False):
             "swagger_convention",
             # routes
             "pizza_routes",
+            "order_routes",
+            "topping_routes",
+            "order_event_routes",
+            # Factories
+            "order_event_factory",
         )
 
     return graph.lock()
