@@ -42,7 +42,7 @@ jobs:
           name: Run Lint
           command: |
             sudo pip install -r test_requirements.txt
-            flake8
+            flake8 --config=./setup.cfg
 
 workflows:
   version: 2
