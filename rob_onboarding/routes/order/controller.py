@@ -16,18 +16,16 @@ class OrderController(CRUDStoreAdapter):
         super().__init__(graph, graph.order_store)
         self.order_event_factory = graph.order_event_factory
         self.ns = Namespace(subject=Order, version="v1")
+        self.sns_producer = graph.sns_producer
 
     def create(self, **kwargs):
         order = super().create(**kwargs)
 
         self.order_event_factory.create(
-            ns=self.ns,
-            sns_producer=None,
+            ns=None,
+            sns_producer=self.sns_producer,
             order_id=order.id,
             event_type=OrderEventType.OrderInitialized,
+            customer_id=order.customer_id
         )
-        return order
-
-    def update(self, **kwargs):
-        order = super().update(**kwargs)
         return order

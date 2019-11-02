@@ -53,6 +53,9 @@ def create_app(debug=False, testing=False, model_only=False):
 
     if not model_only:
         graph.use(
+            "sns_producer",
+            # Factories
+            "order_event_factory",
             # conventions
             "build_info_convention",
             "config_convention",
@@ -67,8 +70,6 @@ def create_app(debug=False, testing=False, model_only=False):
             "order_routes",
             "topping_routes",
             "order_event_routes",
-            # Factories
-            "order_event_factory",
         )
 
     return graph.lock()
