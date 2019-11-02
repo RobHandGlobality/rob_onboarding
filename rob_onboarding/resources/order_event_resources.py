@@ -14,6 +14,7 @@ from rob_onboarding.models.order_event_model import OrderEvent
 class OrderEventSchema(Schema):
     id = fields.UUID(required=True,)
     _links = fields.Method("get_links", dump_only=True,)
+    order_id = fields.UUID(required=True, data_key='orderId')
 
     def get_links(self, obj):
         links = Links()

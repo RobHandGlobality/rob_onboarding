@@ -1,6 +1,12 @@
 from unittest.mock import patch
 
-from hamcrest import assert_that, equal_to, is_, has_entries, contains
+from hamcrest import (
+    assert_that,
+    contains,
+    equal_to,
+    has_entries,
+    is_,
+)
 from microcosm_postgres.context import SessionContext, transaction
 from microcosm_postgres.identifiers import new_object_id
 from microcosm_postgres.operations import recreate_all
@@ -44,7 +50,6 @@ class TestOrderRoutes:
             )
         )
 
-    # TODO Fix test
     def test_create(self):
         customer_id = str(new_object_id())
         with patch.object(self.graph.order_store, "new_object_id") as mocked:
@@ -52,16 +57,12 @@ class TestOrderRoutes:
             response = self.client.post(
                 self.list_create_uri, json=dict(customerId=customer_id)
             )
-        assert_that(response.status_code, is_(equal_to(200)))
+        assert_that(response.status_code, is_(equal_to(201)))
         assert_that(
             response.json,
             has_entries(
-                items=contains(
-                    has_entries(
-                        id=str(self.order1.id),
-                        customerId=str(self.order1.customer_id)
-                    )
-                )
+                id=str(self.order1.id),
+                customerId=str(customer_id)
             )
         )
 
