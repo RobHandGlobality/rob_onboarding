@@ -1,5 +1,5 @@
 from microcosm_eventsource.event_types import EventType, event_info
-from microcosm_eventsource.transitioning import any_of, nothing
+from microcosm_eventsource.transitioning import any_of, nothing, event
 
 
 class OrderEventType(EventType):
@@ -22,11 +22,11 @@ class OrderEventType(EventType):
     )
 
     PizzaCustomizationFinished = event_info(
-        follows=any_of("PizzaCreated", "PizzaToppingAdded",),
+        follows=any_of("PizzaToppingAdded",),
     )
 
-    OrderDeliveryDetailsAdded = event_info(follows="PizzaCustomizationFinished",)
+    OrderDeliveryDetailsAdded = event_info(follows=event("PizzaCustomizationFinished"),)
 
-    OrderSubmitted = event_info(follows="OrderDeliveryDetailsAdded",)
+    OrderSubmitted = event_info(follows=event("OrderDeliveryDetailsAdded"),)
 
-    OrderSatisfied = event_info(follows="OrderSubmitted",)
+    OrderSatisfied = event_info(follows=event("OrderSubmitted"),)
