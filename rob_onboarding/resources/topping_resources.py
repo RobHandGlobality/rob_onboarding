@@ -11,12 +11,11 @@ from rob_onboarding.models.topping_model import Topping
 class NewToppingSchema(Schema):
     pizza_id = fields.UUID(required=True, data_key="pizzaId")
     topping_type = fields.String(required=True, data_key="toppingType")
+    order_id = fields.UUID(required=True, data_key="orderId")
 
 
-class ToppingSchema(Schema):
+class ToppingSchema(NewToppingSchema):
     id = fields.UUID(required=True)
-    pizza_id = fields.UUID(required=True, data_key="pizzaId")
-    topping_type = fields.String(required=True, data_key="toppingType")
     _links = fields.Method("get_links", dump_only=True)
 
     def get_links(self, obj):

@@ -26,5 +26,6 @@ class OrderController(CRUDStoreAdapter):
             sns_producer=self.sns_producer,
             order_id=order.id,
             event_type=OrderEventType.OrderInitialized,
+            customer_id=order.customer_id,
         )
         return order

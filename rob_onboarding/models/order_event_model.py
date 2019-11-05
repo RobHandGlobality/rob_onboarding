@@ -13,7 +13,8 @@ class OrderEvent(UnixTimestampEntityMixin):
     __tablename__ = "order_event"
     __eventtype__ = OrderEventType
     __container__ = Order
+    __unique_parent__ = True
 
     order_id = Column(UUIDType, nullable=False)
     # TODO Restore when migration fixed
-    # customer_id = Column(UUIDType, nullable=False)
+    customer_id = Column(UUIDType, nullable=True)

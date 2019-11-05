@@ -7,6 +7,8 @@ from microcosm_postgres.context import SessionContext, transaction
 from microcosm_postgres.identifiers import new_object_id
 
 from rob_onboarding.app import create_app
+from rob_onboarding.models.order_model import Order
+from rob_onboarding.models.pizza_model import Pizza
 from rob_onboarding.models.topping_model import Topping
 
 
@@ -16,7 +18,9 @@ class TestTopping:
         self.topping_store = self.graph.topping_store
 
         self.topping_type = "ONION"
+        self.customer_id = new_object_id()
         self.pizza_id = new_object_id()
+        self.order_id = new_object_id()
 
         self.context = SessionContext(self.graph)
         self.context.recreate_all()
@@ -31,9 +35,16 @@ class TestTopping:
         Topping can be persisted.
 
         """
-        new_topping = Topping(pizza_id=new_object_id(), topping_type=self.topping_type,)
+        new_pizza = Pizza(id=self.pizza_id, customer_id=self.customer_id)
+        new_order = Order(id=self.order_id, customer_id=self.customer_id)
+        new_topping = Topping(
+            pizza_id=self.pizza_id, topping_type=self.topping_type,
+            order_id=self.order_id
+        )
 
         with transaction():
+            self.graph.pizza_store.create(new_pizza)
+            self.graph.order_store.create(new_order)
             self.topping_store.create(new_topping)
 
         retrieved_topping = self.topping_store.retrieve(new_topping.id)

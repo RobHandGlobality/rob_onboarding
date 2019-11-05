@@ -15,6 +15,7 @@ class NewPizzaSchema(Schema):
     customer_id = fields.UUID(required=True, data_key="customerId")
     size = fields.Integer(required=False, default=10)
     crust_type = fields.String(required=False, data_key="crustType", default="thin")
+    order_id = fields.UUID(required=True, data_key='orderId')
 
 
 class PizzaSchema(NewPizzaSchema):
