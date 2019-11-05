@@ -6,9 +6,9 @@ Revises: e107ab9eb193
 Create Date: 2019-11-03 16:26:27.762413
 
 """
-from alembic import op
 import sqlalchemy as sa
 import sqlalchemy_utils
+from alembic import op
 from microcosm_postgres.models import UTCDateTime
 from microcosm_postgres.types import EnumType, Serial
 from sqlalchemy import FetchedValue
@@ -16,6 +16,7 @@ from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
 from rob_onboarding.models.order_event_type import OrderEventType
+
 
 revision = "c04345bd5fc8"
 down_revision = "e107ab9eb193"

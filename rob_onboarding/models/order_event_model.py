@@ -15,3 +15,5 @@ class OrderEvent(UnixTimestampEntityMixin):
     __container__ = Order
 
     order_id = Column(UUIDType, nullable=False)
+    # TODO Restore when migration fixed
+    # customer_id = Column(UUIDType, nullable=False)

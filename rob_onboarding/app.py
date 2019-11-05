@@ -9,14 +9,7 @@ from microcosm_secretsmanager.loaders.conventions import load_from_secretsmanage
 
 import rob_onboarding.factories  # noqa
 import rob_onboarding.postgres  # noqa
-import rob_onboarding.routes.order.controller  # noqa
-import rob_onboarding.routes.order.crud  # noqa
-import rob_onboarding.routes.order_event.controller  # noqa
-import rob_onboarding.routes.order_event.crud  # noqa
-import rob_onboarding.routes.pizza.controller  # noqa
-import rob_onboarding.routes.pizza.crud  # noqa
-import rob_onboarding.routes.topping.controller  # noqa
-import rob_onboarding.routes.topping.crud  # noqa
+import rob_onboarding.routes  # noqa
 import rob_onboarding.stores  # noqa
 from rob_onboarding.config import load_default_config
 
